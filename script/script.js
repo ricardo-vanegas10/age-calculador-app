@@ -15,6 +15,19 @@ const yourDay = document.querySelector(".yourday");
 const yearInput = document.getElementById("year");
 yearInput.max = new Date().getFullYear();
 
+// Agregar evento de entrada para limitar el número de caracteres
+day.addEventListener('input', (e) => {
+    e.target.value = e.target.value.slice(0, 2); // Limita a 2 caracteres
+});
+
+month.addEventListener('input', (e) => {
+    e.target.value = e.target.value.slice(0, 2); // Limita a 2 caracteres
+});
+
+year.addEventListener('input', (e) => {
+    e.target.value = e.target.value.slice(0, 4); // Limita a 4 caracteres
+});
+
 function ValidateAge() {
     const currentYear = new Date().getFullYear();
 
