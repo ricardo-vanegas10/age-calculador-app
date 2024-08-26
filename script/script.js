@@ -1,3 +1,4 @@
+
 const labelDay = document.querySelector("#labelDay");
 const labelMonth = document.querySelector("#labelMonth");
 const labelYear = document.querySelector("#labelYear");
@@ -15,6 +16,8 @@ const yearInput = document.getElementById("year");
 yearInput.max = new Date().getFullYear();
 
 function ValidateAge() {
+    const currentYear = new Date().getFullYear();
+
     if (day.value === "" || month.value === "" || year.value === "") {
         errorDay.style.display = "block";
         errorMonth.style.display = "block";
@@ -24,7 +27,6 @@ function ValidateAge() {
         errorMonth.style.color = "hsl(0, 100%, 67%)";
         errorYear.style.color = "hsl(0, 100%, 67%)";
 
-        // Restablecer mensajes de error
         errorDay.innerHTML = "This field is required";
         errorMonth.innerHTML = "This field is required";
         errorYear.innerHTML = "This field is required";
@@ -37,6 +39,26 @@ function ValidateAge() {
         yourMonth.innerHTML = "--";
         yourDay.innerHTML = "--";
     } else {
+        // Validar que el año no sea mayor que el año actual
+        if (parseInt(year.value) > currentYear) {
+            errorYear.style.display = "block";
+            errorYear.style.color = "hsl(0, 100%, 67%)";
+            errorYear.innerHTML = "Year cannot be in the future";
+
+            errorDay.style.display = "none";
+            errorMonth.style.display = "none";
+            errorDay.style.display = "none";
+
+            labelDay.style.color = "";
+            labelMonth.style.color = "";
+            labelYear.style.color = "hsl(0, 100%, 67%)";
+            
+            yourYear.innerHTML = "--";
+            yourMonth.innerHTML = "--";
+            yourDay.innerHTML = "--";
+            return;
+        }
+
         const isValidDate = validateDate(day.value, month.value, year.value);
 
         if (!isValidDate) {
@@ -51,7 +73,7 @@ function ValidateAge() {
             errorDay.innerHTML = "Must be a valid day";
             errorMonth.innerHTML = "Must be a valid month";
             errorYear.innerHTML = "Must be a valid year";
-    
+
             labelDay.style.color = "hsl(0, 100%, 67%)";
             labelMonth.style.color = "hsl(0, 100%, 67%)";
             labelYear.style.color = "hsl(0, 100%, 67%)";
@@ -102,7 +124,6 @@ function validateDate(day, month, year) {
         inputDate.getFullYear() == year
     );
 }
-
 
 
 
